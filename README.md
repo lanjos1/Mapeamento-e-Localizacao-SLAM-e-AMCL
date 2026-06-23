@@ -14,8 +14,6 @@ Clone o repositório antes de iniciar:
 git clone https://github.com/lar-deeufba/lar_gazebo.git ~/lar_gazebo-noetic
 ```
 
-> **Nota:** O repositório original usa a branch `melodic`. Verifique se a branch utilizada no seu curso é a correta antes de clonar.
-
 ---
 
 ## Objetivo
