@@ -1,5 +1,23 @@
 # Atividade Prática: Mapeamento e Localização com SLAM + AMCL
 
+## Base
+
+Esta atividade utiliza como infraestrutura o repositório **[lar-deeufba/lar_gazebo](https://github.com/lar-deeufba/lar_gazebo)**, desenvolvido pelo Laboratório de Automação e Robótica (LAR) do DEE/UFBA. Ele fornece:
+
+- O **modelo 3D do laboratório LAR** para simulação no Gazebo
+- O **robô Husky** configurado para o ambiente
+- Os **scripts de container Docker** (`build.sh`, `run_husky.sh`, `shell.sh`) que encapsulam todo o ambiente ROS Noetic
+
+Clone o repositório antes de iniciar:
+
+```bash
+git clone https://github.com/lar-deeufba/lar_gazebo.git ~/lar_gazebo-noetic
+```
+
+> **Nota:** O repositório original usa a branch `melodic`. Verifique se a branch utilizada no seu curso é a correta antes de clonar.
+
+---
+
 ## Objetivo
 
 Gerar mapas do ambiente de simulação usando dois algoritmos de SLAM (**GMapping** e **Hector SLAM**), executar o **AMCL** sobre cada mapa gerado e comparar a pose estimada com o ground truth fornecido pelo Gazebo.
@@ -296,7 +314,10 @@ Em ambos os algoritmos, o Erro Final de Posição é maior que o Erro Médio. Es
 
 ## Referências
 
+- **lar-deeufba/lar_gazebo** — Repositório base com o modelo 3D do LAR/UFBA, robô Husky e scripts de container: https://github.com/lar-deeufba/lar_gazebo
 - ROS Wiki — [gmapping](http://wiki.ros.org/gmapping)
 - ROS Wiki — [hector_slam](http://wiki.ros.org/hector_slam)
 - ROS Wiki — [amcl](http://wiki.ros.org/amcl)
 - ROS Wiki — [map_server](http://wiki.ros.org/map_server)
+- Gazebo Simulator — http://gazebosim.org/
+- Husky UGV (ROS) — http://wiki.ros.org/Robots/Husky
