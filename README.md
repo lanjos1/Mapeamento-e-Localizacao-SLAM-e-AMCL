@@ -303,13 +303,10 @@ python3 analise_amcl_comparativo.py
 
 ### Análise Crítica
 
-**Por que o GMapping venceu em posição e estabilidade?**
 O GMapping usa um filtro de partículas Rao-Blackwellized que integra ativamente os dados de odometria durante a construção do mapa. Como o Gazebo fornece odometria com baixo ruído, o mapa gerado apresenta melhor consistência geométrica global, favorecendo a localização do AMCL.
 
-**Por que o Hector SLAM venceu em orientação?**
 O Hector SLAM ignora a odometria e baseia-se exclusivamente em scan matching de alta frequência do LIDAR. Essa abordagem o torna mais preciso na detecção de rotações, gerando bordas angulares mais nítidas no mapa e permitindo que o AMCL estime o ângulo Yaw com menor erro.
 
-**Drift acumulado:**
 Em ambos os algoritmos, o Erro Final de Posição é maior que o Erro Médio. Esse comportamento é esperado na literatura: pequenas incertezas se acumulam ao longo do tempo, gerando uma deriva gradual que cresce com a distância percorrida.
 
 ---
