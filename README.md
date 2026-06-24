@@ -255,7 +255,7 @@ pip install packaging pyyaml --no-deps
 
 ```bash
 cd /src/lar_gazebo/maps
-python3 analise_amcl.py
+python3 analise_amcl_hector_slam.py
 python3 analise_amcl_gmapping.py
 python3 analise_amcl_comparativo.py
 ```
