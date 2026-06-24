@@ -1,4 +1,4 @@
-# Atividade Prática: Mapeamento e Localização com SLAM + AMCL
+# Mapeamento e Localização com SLAM + AMCL
 
 ## Base
 
@@ -273,33 +273,33 @@ python3 analise_amcl_comparativo.py
 | Métrica                     | Valor    |
 |-----------------------------|----------|
 | Erro Médio de Posição       | 0.6488 m |
-| RMSE de Posição             | 0.7179 m |
-| Erro Final de Posição       | 1.0535 m |
-| Erro Médio de Orientação    | 3.1316°  |
-| RMSE de Orientação          | 3.9410°  |
-| Estabilidade (Desvio Padrão)| 0.3072 m |
+| RMSE de Posição             | 0.7075 m |
+| Erro Final de Posição       | 1.0414 m |
+| Erro Médio de Orientação    | 3.1369°  |
+| RMSE de Orientação          | 3.9505°  |
+| Estabilidade (Desvio Padrão)| 0.3040 m |
 
 ### Hector SLAM + AMCL
 
 | Métrica                     | Valor    |
 |-----------------------------|----------|
-| Erro Médio de Posição       | 0.7631 m |
-| RMSE de Posição             | 0.8498 m |
-| Erro Final de Posição       | 1.2919 m |
-| Erro Médio de Orientação    | 2.5432°  |
-| RMSE de Orientação          | 3.1249°  |
-| Estabilidade (Desvio Padrão)| 0.3741 m |
+| Erro Médio de Posição       | 0.7530 m |
+| RMSE de Posição             | 0.8395 m |
+| Erro Final de Posição       | 1.2799 m |
+| Erro Médio de Orientação    | 2.5485°  |
+| RMSE de Orientação          | 3.1337°  |
+| Estabilidade (Desvio Padrão)| 0.3711 m |
 
 ### Confronto Direto
 
 | Métrica                        | Hector SLAM | GMapping | Vencedor   |
 |-------------------------------|-------------|----------|------------|
-| Erro Médio de Posição (m)     | 0.7631      | 0.6488   | GMapping ✅ |
-| RMSE de Posição (m)           | 0.8498      | 0.7179   | GMapping ✅ |
-| Erro Final de Posição (m)     | 1.2919      | 1.0535   | GMapping ✅ |
-| Erro Médio de Orientação (°)  | 2.5432      | 3.1316   | Hector ✅  |
-| RMSE de Orientação (°)        | 3.1249      | 3.9410   | Hector ✅  |
-| Estabilidade (Desvio Padrão)  | 0.3741      | 0.3072   | GMapping ✅ |
+| Erro Médio de Posição (m)     | 0.7530      | 0.6388   | GMapping ✅ |
+| RMSE de Posição (m)           | 0.8395      | 0.7075   | GMapping ✅ |
+| Erro Final de Posição (m)     | 1.2799      | 1.0414   | GMapping ✅ |
+| Erro Médio de Orientação (°)  | 2.5485      | 3.1369   | Hector ✅  |
+| RMSE de Orientação (°)        | 3.1337      | 3.9505   | Hector ✅  |
+| Estabilidade (Desvio Padrão)  | 0.3711      | 0.3040   | GMapping ✅ |
 
 ### Análise Crítica
 
