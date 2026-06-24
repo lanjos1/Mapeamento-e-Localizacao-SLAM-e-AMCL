@@ -31,6 +31,10 @@ resultados_amcl_gmapping.bag  → Gravação dos resultados com mapa do GMapping
 resultados_amcl_hector.bag    → Gravação dos resultados com mapa do Hector SLAM
 ```
 
+> 📦 **Download das bags:** [Google Drive](https://drive.google.com/drive/folders/1oZlZIQPvSXabbZ5R1QXDrxHbLTg5vA5T?usp=sharing)
+>
+> Baixe todas as bags e coloque-as em `/ws/src/lar_gazebo/maps/` dentro do container antes de executar os passos abaixo.
+
 ---
 
 ## Parte 1 — Geração de Mapas
