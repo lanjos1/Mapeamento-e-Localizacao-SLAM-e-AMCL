@@ -52,8 +52,8 @@ cd ~/lar_gazebo-noetic
 **Terminal 2 — Gravação da bag:**
 ```bash
 cd ~/lar_gazebo-noetic && ./scripts/shell.sh
-cd /ws/src/lar_gazebo/maps/
-rosbag record /front/scan /odometry/filtered /tf /tf_static -O sensores_laboratorio.bag
+cd /ws/src/lar_gazebo/bags/
+rosbag record /front/scan /odometry/filtered /tf /tf_static -O [NOME DA BAG].bag
 ```
 
 **Terminal 3 — Teleop:**
@@ -76,21 +76,24 @@ roscore
 
 **Terminal 2 — GMapping:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosparam set use_sim_time true
 rosrun gmapping slam_gmapping scan:=front/scan _base_frame:=base_link _odom_frame:=odom _map_frame:=map
 ```
 
 **Terminal 3 — Reproduzir a bag:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
-cd /ws/src/lar_gazebo/maps/
-rosbag play --clock sensores_laboratorio.bag
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
+cd /ws/src/lar_gazebo/bags/
+rosbag play --clock [NOME DA BAG].bag
 ```
 
 **Terminal 4 — Salvar o mapa (após a bag terminar):**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 cd /ws/src/lar_gazebo/maps/
 rosrun map_server map_saver -f mapa_gmapping
 ```
@@ -103,27 +106,31 @@ rosrun map_server map_saver -f mapa_gmapping
 
 **Terminal 1 — roscore:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 roscore
 ```
 
 **Terminal 2 — Hector SLAM:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosparam set use_sim_time true
 roslaunch lar_gazebo hector_slam.launch
 ```
 
 **Terminal 3 — Reproduzir a bag:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
-cd /ws/src/lar_gazebo/maps/
-rosbag play --clock sensores_laboratorio.bag
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
+cd /ws/src/lar_gazebo/bags/
+rosbag play --clock [NOME DA BAG].bag
 ```
 
 **Terminal 4 — Salvar o mapa (após a bag terminar):**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 cd /ws/src/lar_gazebo/maps/
 rosrun map_server map_saver -f mapa_hector
 ```
@@ -144,14 +151,16 @@ cd ~/lar_gazebo-noetic
 
 **Terminal 2 — Gravação:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
-cd /ws/src/lar_gazebo/maps/
-rosbag record /front/scan /odometry/filtered /tf /tf_static /gazebo/model_states -O bag_teste_localizacao.bag
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
+cd /ws/src/lar_gazebo/bags/
+rosbag record /front/scan /odometry/filtered /tf /tf_static /gazebo/model_states -O [NOME DA BAG DE LOCALIZACAO].bag
 ```
 
 **Terminal 3 — Teleop:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 ```
 
@@ -161,7 +170,8 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
 **Terminal 0 — roscore:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 roscore
 ```
 
@@ -173,24 +183,26 @@ rosrun map_server map_server /ws/src/lar_gazebo/maps/mapa_hector.yaml
 
 **Terminal 2 — AMCL:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosrun amcl amcl scan:=/front/scan _base_frame_id:=base_link _odom_frame_id:=odom _global_frame_id:=map
 ```
 
 **Terminal 3 — Gravar resultados:**
 ```bash
-rosbag record /amcl_pose /gazebo/model_states -O resultados_amcl_hector.bag
+rosbag record /amcl_pose /gazebo/model_states -O [NOME DA BAG DE RESULTADOS].bag
 ```
 
 **Terminal 4 — Reproduzir bag de localização:**
 ```bash
-cd /ws/src/lar_gazebo/maps/
-rosbag play --clock bag_teste_localizacao.bag
+cd /ws/src/lar_gazebo/bags/
+rosbag play --clock [NOME DA BAG DE LOCALIZACAO].bag
 ```
 
 **Terminal 5 — RViz (opcional, para visualização):**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosrun rviz rviz
 ```
 
@@ -204,13 +216,15 @@ No RViz, configure:
 
 **Terminal 1 — roscore:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 roscore
 ```
 
 **Terminal 2 — Carregar mapa e publisher do robô:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosparam set use_sim_time true
 rosrun map_server map_server /ws/src/lar_gazebo/maps/mapa_gmapping.yaml &
 roslaunch husky_description description.launch &
@@ -219,25 +233,27 @@ rosrun robot_state_publisher robot_state_publisher
 
 **Terminal 3 — AMCL:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosrun amcl amcl scan:=/front/scan _base_frame_id:=base_link _odom_frame_id:=odom _global_frame_id:=map
 ```
 
 **Terminal 4 — RViz:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 rosrun rviz rviz
 ```
 
 **Terminal 5 — Gravar resultados:**
 ```bash
-cd /ws/src/lar_gazebo/
+cd /ws/src/lar_gazebo/bags/
 rosbag record /amcl_pose /gazebo/model_states -O resultados_amcl_gmapping.bag
 ```
 
 **Terminal 6 — Reproduzir bag de localização:**
 ```bash
-cd /ws/src/lar_gazebo/maps/
+cd /ws/src/lar_gazebo/bags/
 rosbag play --clock bag_teste_localizacao.bag
 ```
 
@@ -248,7 +264,8 @@ rosbag play --clock bag_teste_localizacao.bag
 ### Instalar dependências
 
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/lar_gazebo-noetic
+./scripts/shell.sh
 pip install "numpy==1.17.4" "pandas<1.0.0" "scipy<1.5.0" matplotlib
 pip install bagpy --no-dependencies
 pip install seaborn --no-deps
@@ -258,7 +275,7 @@ pip install packaging pyyaml --no-deps
 ### Rodar scripts de análise
 
 ```bash
-cd /src/lar_gazebo/maps
+cd /src/lar_gazebo/maps/
 python3 analise_amcl_hector_slam.py
 python3 analise_amcl_gmapping.py
 python3 analise_amcl_comparativo.py
