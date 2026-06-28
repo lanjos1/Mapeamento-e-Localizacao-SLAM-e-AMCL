@@ -97,6 +97,10 @@ rosrun map_server map_saver -f mapa_gmapping
 
 > Serão gerados os arquivos `mapa_gmapping.pgm` e `mapa_gmapping.yaml`.
 
+**Mapa gerado pelo GMapping:**
+
+![Mapa GMapping](doc/images/mapa_gmapping.png)
+
 ---
 
 ### 1.3 Gerar mapa com Hector SLAM
@@ -133,6 +137,10 @@ rosrun map_server map_saver -f mapa_hector
 ```
 
 > Serão gerados os arquivos `mapa_hector.pgm` e `mapa_hector.yaml`.
+
+**Mapa gerado pelo Hector SLAM:**
+
+![Mapa Hector SLAM](doc/images/mapa_hector.png)
 
 ---
 
@@ -230,7 +238,7 @@ rosrun robot_state_publisher robot_state_publisher
 
 **Terminal 3 — AMCL:**
 ```bash
-cd ~/[PASTA PRINCIPAL]
+cd~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 rosrun amcl amcl scan:=/front/scan _base_frame_id:=base_link _odom_frame_id:=odom _global_frame_id:=map
 ```
@@ -314,6 +322,10 @@ python3 analise_amcl_comparativo.py
 | Erro Médio de Orientação (°)  | 2.5485      | 3.1369   | Hector ✅  |
 | RMSE de Orientação (°)        | 3.1337      | 3.9505   | Hector ✅  |
 | Estabilidade (Desvio Padrão)  | 0.3711      | 0.3040   | GMapping ✅ |
+
+### Análise Comparativa
+
+![Análise Comparativa AMCL](doc/images/analise-comparativa_amcl.png)
 
 ### Análise Crítica
 
