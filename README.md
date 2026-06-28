@@ -2,17 +2,11 @@
 
 ## Base
 
-Esta atividade utiliza como infraestrutura o repositório **[lar-deeufba/lar_gazebo](https://github.com/lar-deeufba/lar_gazebo)**, desenvolvido pelo Laboratório de Automação e Robótica (LAR) do DEE/UFBA. Ele fornece:
+Esta atividade utiliza como infraestrutura o repositório **[lar-deeufba/lar_gazebo](https://github.com/lar-deeufba/lar_gazebo)**, desenvolvido pelo Laboratório de Automação e Robótica (LAR) do DEE/UFBA. Este repositório fornece:
 
 - O **modelo 3D do laboratório LAR** para simulação no Gazebo
 - O **robô Husky** configurado para o ambiente
 - Os **scripts de container Docker** (`build.sh`, `run_husky.sh`, `shell.sh`) que encapsulam todo o ambiente ROS Noetic
-
-Clone o repositório antes de iniciar:
-
-```bash
-git clone https://github.com/lar-deeufba/lar_gazebo.git ~/lar_gazebo-noetic
-```
 
 ---
 
@@ -33,7 +27,7 @@ resultados_amcl_hector.bag    → Gravação dos resultados com mapa do Hector S
 
 > 📦 **Download das bags:** [Google Drive](https://drive.google.com/drive/folders/1oZlZIQPvSXabbZ5R1QXDrxHbLTg5vA5T?usp=sharing)
 >
-> Baixe todas as bags e coloque-as em uma nova pasta `/ws/src/lar_gazebo/bags/` dentro do container antes de executar os passos abaixo.
+> As bags de geração de mapas e de localização e coloque-as em uma nova pasta `/ws/src/lar_gazebo/bags/` dentro do container antes de executar os passos abaixo.
 
 ---
 
@@ -45,20 +39,22 @@ Abra 3 terminais:
 
 **Terminal 1 — Robô no mundo:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/run_husky.sh
 ```
 
 **Terminal 2 — Gravação da bag:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/[PASTA PRINCIPAL]
+./scripts/shell.sh
 cd /ws/src/lar_gazebo/bags/
 rosbag record /front/scan /odometry/filtered /tf /tf_static -O [NOME DA BAG].bag
 ```
 
 **Terminal 3 — Teleop:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/[PASTA PRINCIPAL]
+./scripts/shell.sh
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 ```
 
@@ -70,13 +66,14 @@ Navegue pelo ambiente até cobrir bem o espaço, depois encerre a gravação com
 
 **Terminal 1 — roscore:**
 ```bash
-cd ~/lar_gazebo-noetic && ./scripts/shell.sh
+cd ~/[PASTA PRINCIPAL]
+./scripts/shell.sh
 roscore
 ```
 
 **Terminal 2 — GMapping:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 rosparam set use_sim_time true
 rosrun gmapping slam_gmapping scan:=front/scan _base_frame:=base_link _odom_frame:=odom _map_frame:=map
@@ -84,7 +81,7 @@ rosrun gmapping slam_gmapping scan:=front/scan _base_frame:=base_link _odom_fram
 
 **Terminal 3 — Reproduzir a bag:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 cd /ws/src/lar_gazebo/bags/
 rosbag play --clock [NOME DA BAG].bag
@@ -92,7 +89,7 @@ rosbag play --clock [NOME DA BAG].bag
 
 **Terminal 4 — Salvar o mapa (após a bag terminar):**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 cd /ws/src/lar_gazebo/maps/
 rosrun map_server map_saver -f mapa_gmapping
@@ -106,14 +103,14 @@ rosrun map_server map_saver -f mapa_gmapping
 
 **Terminal 1 — roscore:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 roscore
 ```
 
 **Terminal 2 — Hector SLAM:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 rosparam set use_sim_time true
 roslaunch lar_gazebo hector_slam.launch
@@ -121,7 +118,7 @@ roslaunch lar_gazebo hector_slam.launch
 
 **Terminal 3 — Reproduzir a bag:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 cd /ws/src/lar_gazebo/bags/
 rosbag play --clock [NOME DA BAG].bag
@@ -129,7 +126,7 @@ rosbag play --clock [NOME DA BAG].bag
 
 **Terminal 4 — Salvar o mapa (após a bag terminar):**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 cd /ws/src/lar_gazebo/maps/
 rosrun map_server map_saver -f mapa_hector
@@ -145,13 +142,13 @@ Abra 3 terminais:
 
 **Terminal 1 — Robô no mundo:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/run_husky.sh
 ```
 
 **Terminal 2 — Gravação:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 cd /ws/src/lar_gazebo/bags/
 rosbag record /front/scan /odometry/filtered /tf /tf_static /gazebo/model_states -O [NOME DA BAG DE LOCALIZACAO].bag
@@ -159,7 +156,7 @@ rosbag record /front/scan /odometry/filtered /tf /tf_static /gazebo/model_states
 
 **Terminal 3 — Teleop:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 ```
@@ -170,7 +167,7 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 
 **Terminal 0 — roscore:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 roscore
 ```
@@ -216,14 +213,14 @@ No RViz, configure:
 
 **Terminal 1 — roscore:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 roscore
 ```
 
 **Terminal 2 — Carregar mapa e publisher do robô:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 rosparam set use_sim_time true
 rosrun map_server map_server /ws/src/lar_gazebo/maps/mapa_gmapping.yaml &
@@ -233,14 +230,14 @@ rosrun robot_state_publisher robot_state_publisher
 
 **Terminal 3 — AMCL:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 rosrun amcl amcl scan:=/front/scan _base_frame_id:=base_link _odom_frame_id:=odom _global_frame_id:=map
 ```
 
 **Terminal 4 — RViz:**
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 rosrun rviz rviz
 ```
@@ -264,7 +261,7 @@ rosbag play --clock bag_teste_localizacao.bag
 ### Instalar dependências
 
 ```bash
-cd ~/lar_gazebo-noetic
+cd ~/[PASTA PRINCIPAL]
 ./scripts/shell.sh
 pip install "numpy==1.17.4" "pandas<1.0.0" "scipy<1.5.0" matplotlib
 pip install bagpy --no-dependencies
@@ -275,7 +272,7 @@ pip install packaging pyyaml --no-deps
 ### Rodar scripts de análise
 
 ```bash
-cd /src/lar_gazebo/maps/
+cd /src/lar_gazebo/analises/
 python3 analise_amcl_hector_slam.py
 python3 analise_amcl_gmapping.py
 python3 analise_amcl_comparativo.py
