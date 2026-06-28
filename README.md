@@ -309,7 +309,7 @@ O mapa gerado pelo **GMapping** apresenta maior completude: as paredes do labora
 
 #### Presença de distorções
 
-O GMapping apresenta uma distorção pontual no canto superior esquerdo, onde o feixe do LIDAR extrapolou para fora dos limites reais do laboratório, gerando um artefato em leque de células livres. O Hector SLAM não exibe esse artefato, mas compensa com uma leve curvatura nas paredes longas, resultado da ausência de odometria para ancorar o alinhamento global entre varreduras.
+O GMapping apresenta uma distorção pontual no canto superior esquerdo, onde o feixe do LIDAR extrapolou para fora dos limites reais do laboratório, gerando um leque. O Hector SLAM não exibe isso, mas tem uma leve curvatura nas paredes longas, resultado da ausência de odometria para ancorar o alinhamento global entre varreduras.
 
 #### Paredes desalinhadas
 
@@ -317,11 +317,11 @@ No GMapping as paredes são em geral bem alinhadas, com descontinuidade apenas n
 
 #### Obstáculos falsos
 
-Ambos os mapas registram pontos isolados no interior do espaço livre, correspondentes a objetos transitórios (cabos, cadeiras) presentes durante a gravação da bag mas ausentes no modelo 3D do Gazebo. O GMapping filtra melhor esses pontos esporádicos por meio do peso das partículas, enquanto o Hector SLAM os mantém com maior persistência por depender exclusivamente da consistência entre scans.
+Ambos os mapas registram pontos isolados no interior do espaço livre, correspondentes a objetos como mesas, cadeiras e computadores, presentes no modelo 3D do Gazebo. O GMapping filtra melhor esses pontos esporádicos por meio do peso das partículas, enquanto o Hector SLAM os mantém com maior persistência por depender exclusivamente da consistência entre scans e por isso ele tem mais pontos próximos uns dos outros representando um objeto só.
 
 #### Regiões desconhecidas (cinza)
 
-As regiões cinza (probabilidade não observada) são mais extensas no mapa do Hector SLAM, especialmente nas bordas externas ao laboratório, pois o algoritmo não expande a ocupação além das varreduras efetivas do LIDAR. No GMapping, a propagação via partículas preenche marginalmente essas fronteiras, resultando em menos pixels cinza ao redor do perímetro.
+As regiões cinza são mais extensas no mapa do Hector SLAM, especialmente nas bordas externas ao laboratório, pois o algoritmo não expande a ocupação além das varreduras efetivas do LIDAR. No GMapping, a propagação via partículas preenche marginalmente essas fronteiras, resultando em menos pixels cinza ao redor do perímetro.
 
 #### Qualidade da localização com AMCL
 
