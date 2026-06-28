@@ -325,7 +325,7 @@ python3 analise_amcl_comparativo.py
 
 ### Análise Comparativa
 
-![Análise Comparativa AMCL](doc/images/analise-comparativa_amcl.png)
+![Análise Comparativa AMCL](doc/images/analise_comparativa_amcl.png)
 
 ### Análise Crítica
 
