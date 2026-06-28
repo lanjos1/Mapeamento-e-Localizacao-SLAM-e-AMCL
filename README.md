@@ -288,9 +288,9 @@ python3 analise_amcl_comparativo.py
 
 ---
 
-## Parte 6 — Resultados Obtidos e Discussão
+## Resultados Obtidos e Discussão
 
-### Confronto Direto SLAM + AMCL
+### SLAM + AMCL
 
 | Métrica                       | Hector SLAM | GMapping | Vencedor    |
 |-------------------------------|-------------|----------|-------------|
