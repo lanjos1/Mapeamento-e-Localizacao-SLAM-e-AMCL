@@ -306,30 +306,27 @@ python3 analise_amcl_comparativo.py
 #### Completude do mapa
 
 
-Os dois mapas apresentam boa completude, as paredes do laboratório foram bem fechadas em quase toda a extensão, e as sub-regiões internas, corredor lateral e alcova inferior, aparecem totalmente exploradas. 
-No entanto o mapa do **Hector SLAM** deixa uma região de incerteza visível na entrada (canto superior esquerdo), onde o LIDAR realizou poucas varreduras sobrepostas.
+Os dois mapas apresentam boa completude, as paredes do laboratório foram bem fechadas em quase toda a extensão, e as sub-regiões internas, corredor lateral e alcova inferior, aparecem totalmente exploradas. No entanto o mapa do **Hector SLAM** deixa uma região de incerteza visível na entrada (canto superior esquerdo), onde o LIDAR realizou poucas varreduras sobrepostas.
 
 #### Presença de distorções
 
-O GMapping apresenta uma distorção no canto superior esquerdo, onde o feixe do LIDAR extrapolou para fora dos limites reais do laboratório, gerando um leque. 
-
-O Hector SLAM tem uma leve curvatura nas paredes longas, resultado da ausência de odometria para ancorar o alinhamento global entre varreduras.
+O GMapping apresenta uma distorção no canto superior esquerdo, onde o feixe do LIDAR extrapolou para fora dos limites reais do laboratório, gerando um leque. O Hector SLAM tem uma leve curvatura nas paredes longas, resultado da ausência de odometria para ancorar o alinhamento global entre varreduras.
 
 #### Paredes desalinhadas
 
-No GMapping as paredes são bem alinhadas, com descontinuidade na transição entre os dois segmentos da parede oeste. No Hector SLAM tem um desalinhamento mais pronunciado na parede superior: duas varreduras consecutivas produziram traços paralelos com offset, indicando que o scan matching acumulou um pequeno erro de rotação sem correção odométrica.
+No GMapping as paredes são bem alinhadas. No Hector SLAM tem um desalinhamento mais visível na parede superior, duas varreduras consecutivas produziram traços paralelos com offset, indicando que o scan matching acumulou um erro de rotação sem correção odométrica.
 
 #### Obstáculos falsos
 
-Os dois mapas tem pontos isolados no espaço livre, que correpspondem a objetos como mesas, cadeiras e computadores, do modelo 3D do Gazebo. O GMapping filtra melhor esses pontos por meio do peso das partículas, enquanto o Hector SLAM mantém mais pontos por cauda da consistência entre scans e por isso ele tem mais pontos próximos uns dos outros representando um objeto só.
+Os dois mapas tem pontos isolados no espaço livre, que correpspondem a objetos como mesas, cadeiras e computadores, do modelo 3D do Gazebo. O GMapping filtra melhor esses pontos por meio do peso das partículas e o Hector SLAM mantém mais pontos por causa da consistência entre scans e por isso ele tem mais pontos próximos uns dos outros representando um objeto só.
 
 #### Regiões desconhecidas (cinza)
 
-As regiões cinza são mais extensas no mapa do Hector SLAM, especialmente nas bordas externas ao laboratório, pois o algoritmo não expande a ocupação além das varreduras efetivas do LIDAR. No GMapping, a propagação via partículas preenche marginalmente essas fronteiras, resultando em menos pixels cinza ao redor do perímetro.
+As regiões cinza são mais extensas no mapa do Hector SLAM, especialmente nas bordas externas ao laboratório, pois o algoritmo não expande a ocupação além das varreduras efetivas do LIDAR. No GMapping, a propagação via partículas preenche marginalmente essas fronteiras, resultando em menos pixels cinza ao redor.
 
 #### Qualidade da localização com AMCL
 
-O AMCL obteve melhor desempenho posicional sobre o mapa do GMapping (RMSE 0,707 m vs. 0,839 m), por causa da melhor consistência geométrica do mapa. Sobre o mapa do Hector SLAM, o AMCL compensou parcialmente o erro posicional com melhor estimativa de orientação (RMSE 3,13° vs. 3,95°), aproveitando as bordas angulares mais nítidas produzidas pelo scan matching puro. Nos dois casos o erro final de posição é superior ao erro médio, o que mostra deriva acumulada ao longo da trajetória.
+O AMCL obteve melhor desempenho posicional sobre o mapa do GMapping (RMSE 0,707 m vs. 0,839 m), por causa da melhor consistência geométrica do mapa. Sobre o mapa do Hector SLAM, o AMCL compensou o erro posicional com melhor estimativa de orientação (RMSE 3,13° vs. 3,95°), aproveitando as bordas angulares mais nítidas produzidas pelo scan matching puro. Nos dois casos o erro final de posição é superior ao erro médio, o que mostra deriva acumulada ao longo da trajetória.
 
 ---
 
@@ -339,11 +336,11 @@ O AMCL obteve melhor desempenho posicional sobre o mapa do GMapping (RMSE 0,707 
 
 ### Análise Crítica
 
-O GMapping usa um filtro de partículas Rao-Blackwellized que integra os dados de odometria durante a construção do mapa. Como o Gazebo fornece odometria com baixo ruído, o mapa gerado apresenta melhor consistência geométrica, e consequentemente melhor localização do AMCL.
+O GMapping usa um filtro de partículas Rao-Blackwellized que integra os dados de odometria durante a construção do mapa. Como o Gazebo fornece odometria com baixo ruído, o mapa gerado apresenta melhor consistência geométrica e melhor localização do AMCL.
 
-O Hector SLAM ignora a odometria e baseia-se em scan matching de alta frequência do LIDAR, o que o torna mais preciso na detecção de rotações, gerando bordas angulares mais nítidas no mapa e permitindo que o AMCL estime o ângulo Yaw com menor erro.
+O Hector SLAM ignora a odometria e baseia-se em scan matching de alta frequência do LIDAR, o que o torna mais preciso na detecção de rotações, gerando bordas angulares mais nítidas no mapa e dessa forma o AMCL estima o ângulo Yaw com menor erro.
 
-Em ambos os algoritmos, o Erro Final de Posição é maior que o Erro Médio. Esse comportamento é esperado na literatura: pequenas incertezas se acumulam ao longo do tempo, gerando uma deriva gradual que cresce com a distância percorrida.
+Em ambos os algoritmos, o Erro Final de Posição é maior que o Erro Médio. Esse comportamento é esperado na literatura porque pequenas incertezas se acumulam ao longo do tempo, gerando uma deriva que cresce com a distância percorrida.
 
 ---
 
