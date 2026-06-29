@@ -292,32 +292,36 @@ python3 analise_amcl_comparativo.py
 
 ### SLAM + AMCL
 
-| Métrica                       | Hector SLAM | GMapping | Vencedor    |
-|-------------------------------|-------------|----------|-------------|
-| Erro Médio de Posição (m)     | 0.7530  m   | 0.6388  m| GMapping ✅ |
-| RMSE de Posição (m)           | 0.8395  m   | 0.7075  m| GMapping ✅ |
-| Erro Final de Posição (m)     | 1.2799  m   | 1.0414  m| GMapping ✅ |
-| Erro Médio de Orientação (°)  | 2.5485°     | 3.1369°  | Hector ✅   |
-| RMSE de Orientação (°)        | 3.1337°     | 3.9505°  | Hector ✅   |
-| Estabilidade (Desvio Padrão)  | 0.3711°     | 0.3040°  | GMapping ✅ |
+| Métrica                       | Hector SLAM | GMapping | 
+|-------------------------------|-------------|----------|
+| Erro Médio de Posição (m)     | 0.7530  m   | 0.6388  m|
+| RMSE de Posição (m)           | 0.8395  m   | 0.7075  m|
+| Erro Final de Posição (m)     | 1.2799  m   | 1.0414  m|
+| Erro Médio de Orientação (°)  | 2.5485°     | 3.1369°  |
+| RMSE de Orientação (°)        | 3.1337°     | 3.9505°  |
+| Estabilidade (Desvio Padrão)  | 0.3711°     | 0.3040°  |
 
 ### Análise Qualitativa dos Mapas
 
 #### Completude do mapa
 
-O mapa gerado pelo **GMapping** apresenta maior completude: as paredes do laboratório foram fechadas em quase toda a extensão, e as sub-regiões internas (corredor lateral e alcova inferior) aparecem totalmente exploradas. O mapa do **Hector SLAM** também cobre o contorno principal do ambiente, mas deixa uma região de incerteza visível na entrada (canto superior esquerdo), onde o LIDAR realizou poucas varreduras sobrepostas.
+
+Os dois mapas apresentam boa completude, as paredes do laboratório foram bem fechadas em quase toda a extensão, e as sub-regiões internas, corredor lateral e alcova inferior, aparecem totalmente exploradas. 
+No entanto o mapa do **Hector SLAM** deixa uma região de incerteza visível na entrada (canto superior esquerdo), onde o LIDAR realizou poucas varreduras sobrepostas.
 
 #### Presença de distorções
 
-O GMapping apresenta uma distorção pontual no canto superior esquerdo, onde o feixe do LIDAR extrapolou para fora dos limites reais do laboratório, gerando um leque. O Hector SLAM não exibe isso, mas tem uma leve curvatura nas paredes longas, resultado da ausência de odometria para ancorar o alinhamento global entre varreduras.
+O GMapping apresenta uma distorção no canto superior esquerdo, onde o feixe do LIDAR extrapolou para fora dos limites reais do laboratório, gerando um leque. 
+
+O Hector SLAM tem uma leve curvatura nas paredes longas, resultado da ausência de odometria para ancorar o alinhamento global entre varreduras.
 
 #### Paredes desalinhadas
 
-No GMapping as paredes são em geral bem alinhadas, com descontinuidade apenas na transição entre os dois segmentos da parede oeste. No Hector SLAM observa-se um desalinhamento mais pronunciado na parede superior: duas varreduras consecutivas produziram traços paralelos com offset de ~2 células, indicando que o scan matching acumulou um pequeno erro de rotação sem correção odométrica.
+No GMapping as paredes são bem alinhadas, com descontinuidade na transição entre os dois segmentos da parede oeste. No Hector SLAM tem um desalinhamento mais pronunciado na parede superior: duas varreduras consecutivas produziram traços paralelos com offset, indicando que o scan matching acumulou um pequeno erro de rotação sem correção odométrica.
 
 #### Obstáculos falsos
 
-Ambos os mapas registram pontos isolados no interior do espaço livre, correspondentes a objetos como mesas, cadeiras e computadores, presentes no modelo 3D do Gazebo. O GMapping filtra melhor esses pontos esporádicos por meio do peso das partículas, enquanto o Hector SLAM os mantém com maior persistência por depender exclusivamente da consistência entre scans e por isso ele tem mais pontos próximos uns dos outros representando um objeto só.
+Os dois mapas tem pontos isolados no espaço livre, que correpspondem a objetos como mesas, cadeiras e computadores, do modelo 3D do Gazebo. O GMapping filtra melhor esses pontos por meio do peso das partículas, enquanto o Hector SLAM mantém mais pontos por cauda da consistência entre scans e por isso ele tem mais pontos próximos uns dos outros representando um objeto só.
 
 #### Regiões desconhecidas (cinza)
 
@@ -325,7 +329,7 @@ As regiões cinza são mais extensas no mapa do Hector SLAM, especialmente nas b
 
 #### Qualidade da localização com AMCL
 
-O AMCL obteve melhor desempenho posicional sobre o mapa do GMapping (RMSE 0,707 m vs. 0,839 m), beneficiado pela maior consistência geométrica global do mapa. Sobre o mapa do Hector SLAM, o AMCL compensou parcialmente o erro posicional com melhor estimativa de orientação (RMSE 3,13° vs. 3,95°), aproveitando as bordas angulares mais nítidas produzidas pelo scan matching puro. Em ambos os casos o erro final de posição é superior ao erro médio, indicando deriva acumulada ao longo da trajetória.
+O AMCL obteve melhor desempenho posicional sobre o mapa do GMapping (RMSE 0,707 m vs. 0,839 m), por causa da melhor consistência geométrica do mapa. Sobre o mapa do Hector SLAM, o AMCL compensou parcialmente o erro posicional com melhor estimativa de orientação (RMSE 3,13° vs. 3,95°), aproveitando as bordas angulares mais nítidas produzidas pelo scan matching puro. Nos dois casos o erro final de posição é superior ao erro médio, o que mostra deriva acumulada ao longo da trajetória.
 
 ---
 
@@ -335,9 +339,9 @@ O AMCL obteve melhor desempenho posicional sobre o mapa do GMapping (RMSE 0,707 
 
 ### Análise Crítica
 
-O GMapping usa um filtro de partículas Rao-Blackwellized que integra ativamente os dados de odometria durante a construção do mapa. Como o Gazebo fornece odometria com baixo ruído, o mapa gerado apresenta melhor consistência geométrica global, favorecendo a localização do AMCL.
+O GMapping usa um filtro de partículas Rao-Blackwellized que integra os dados de odometria durante a construção do mapa. Como o Gazebo fornece odometria com baixo ruído, o mapa gerado apresenta melhor consistência geométrica, e consequentemente melhor localização do AMCL.
 
-O Hector SLAM ignora a odometria e baseia-se exclusivamente em scan matching de alta frequência do LIDAR. Essa abordagem o torna mais preciso na detecção de rotações, gerando bordas angulares mais nítidas no mapa e permitindo que o AMCL estime o ângulo Yaw com menor erro.
+O Hector SLAM ignora a odometria e baseia-se em scan matching de alta frequência do LIDAR, o que o torna mais preciso na detecção de rotações, gerando bordas angulares mais nítidas no mapa e permitindo que o AMCL estime o ângulo Yaw com menor erro.
 
 Em ambos os algoritmos, o Erro Final de Posição é maior que o Erro Médio. Esse comportamento é esperado na literatura: pequenas incertezas se acumulam ao longo do tempo, gerando uma deriva gradual que cresce com a distância percorrida.
 
